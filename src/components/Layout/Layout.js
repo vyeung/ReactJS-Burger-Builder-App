@@ -1,12 +1,13 @@
 import React from "react";
 import Aux from "../../hoc/Auxiliary";
+import styles from "./Layout.css";
 
 const layout = (props) => {
   return (
-    //using a HOC so we can have adjacent JSX elements
+    //using a HOC to save rendering an unnecessary div
     <Aux>
       <div>Toolbar, SideDrawer, Backdrop</div>
-      <main>
+      <main className={styles.Content}>
         {props.children}
       </main>
     </Aux>
