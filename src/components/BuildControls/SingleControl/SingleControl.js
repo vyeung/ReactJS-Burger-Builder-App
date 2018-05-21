@@ -8,9 +8,9 @@ const singleControl = (props) => {
       <div className={styles.Label}>
         {props.myLabel}
       </div> 
-      
+
       <button className={styles.Less}> - </button>
-      <button className={styles.More}> + </button>
+      <button className={styles.More} onClick={props.added}> + </button>
     </div>
   );
 };
