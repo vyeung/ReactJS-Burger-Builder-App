@@ -13,12 +13,13 @@ const controls = [
 const buildControls = (props) => {
   return (
     <div className={styles.BuildControls}>
-      {/*pass each SingleControl 2 props using map*/}
       {controls.map(ctrl => (
         <SingleControl 
           key={ctrl.label} 
           myLabel={ctrl.label}
           added={() => props.ingredientAdded(ctrl.type)}
+          removed={() => props.ingredientRemoved(ctrl.type)}
+          //disabledBttnVal={props.disabledBttnObj[ctrl.type]}
         />
       ))}
     </div>
