@@ -4,10 +4,10 @@ import SingleControl from "./SingleControl/SingleControl";
 
 //our possible control options
 const controls = [
-  {label: "Lettuce", type: "salad"},
+  {label: "Lettuce", type: "lettuce"},
   {label: "Bacon", type: "bacon"},
   {label: "Cheese", type: "cheese"},
-  {label: "Beef", type: "meat"},
+  {label: "Beef", type: "beef"},
 ];
 
 const buildControls = (props) => {

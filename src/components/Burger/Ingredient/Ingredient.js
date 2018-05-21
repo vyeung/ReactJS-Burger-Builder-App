@@ -16,7 +16,7 @@ const ingredient = (props) => {
       </div>
     );
   }
-  else if(props.type === "meat") {
+  else if(props.type === "beef") {
     ingredient = <div className={styles.Meat}></div>;
   }
   else if(props.type === "cheese") {

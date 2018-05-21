@@ -10,7 +10,7 @@ const burger = (props) => {
     //console.log(props.ingredients[key]);
     for(var i=0; i<props.ingredients[key]; i++) {
       //need to give a key for each element in array. get a warning otherwise
-      //ex: lettuce0, meat0, meat1
+      //ex: lettuce0, beef0, beef1
       ingredientsArray.push(<Ingredient key={key+i} type={key} />);
     }
   }
