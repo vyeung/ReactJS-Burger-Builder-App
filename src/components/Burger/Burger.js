@@ -15,6 +15,10 @@ const burger = (props) => {
     }
   }
 
+  if(ingredientsArray.length === 0) {
+    ingredientsArray = <p>Please Start Adding Ingredients</p>;
+  }
+
   return (
     //burger is a div on screen. 
     //will always have a top and bottom bun. put ingredientsArray in between 
