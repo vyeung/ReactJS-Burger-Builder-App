@@ -18,7 +18,26 @@ class BurgerBuilder extends Component {
       cheese: 0,
       beef: 0
     }, 
-    totalPrice: 3
+    totalPrice: 3,
+    canPurchase: false
+  }
+
+  //doesn't need to be an arrow function since it's not assigned to an event
+  updatePurchaseState(ingreds) {
+    let bool;
+    let sum = 0;
+    const ingredAmounts = Object.values(ingreds); //ex: [0,2,1,3]
+
+    for(var i=0; i<ingredAmounts.length; i++) {
+      sum = sum + ingredAmounts[i];
+    }
+
+    if(sum > 0)
+      bool = true;
+    else 
+      bool = false;
+
+    this.setState({canPurchase: bool});
   }
 
   addIngredientHandler = (type) => {
@@ -37,6 +56,8 @@ class BurgerBuilder extends Component {
       ingredients: updatedIngredients,
       totalPrice: newPrice
     });
+
+    this.updatePurchaseState(updatedIngredients);
   }
 
   removeIngredientHandler = (type) => {
@@ -59,6 +80,8 @@ class BurgerBuilder extends Component {
       ingredients: updatedIngredients,
       totalPrice: newPrice
     });
+
+    this.updatePurchaseState(updatedIngredients);
   }
 
   render() {
@@ -83,6 +106,7 @@ class BurgerBuilder extends Component {
           ingredientRemoved={this.removeIngredientHandler}
           //disabledBttnObj={disabledCheck}
           price={this.state.totalPrice}
+          purchase={this.state.canPurchase}
         />
       </Aux>
     );
