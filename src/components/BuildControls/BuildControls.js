@@ -25,9 +25,11 @@ const buildControls = (props) => {
         />
       ))}
 
+      {/*note: disabled is a HTML attribute, not a prop*/}
       <button 
         className={styles.OrderButton}
-        disabled={!props.purchase}>ORDER</button>
+        disabled={!props.purchasable}
+        onClick={props.ordered}>ORDER</button>
     </div>
   );
 };

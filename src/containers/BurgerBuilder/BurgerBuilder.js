@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import Aux from "../../hoc/Auxiliary";
 import Burger from "../../components/Burger/Burger"
 import BuildControls from "../../components/BuildControls/BuildControls";
+import Modal from "../../components/UI/Modal/Modal";
+import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 
 const INGREDIENT_PRICES = {
   lettuce: 0.5,
@@ -19,7 +21,8 @@ class BurgerBuilder extends Component {
       beef: 0
     }, 
     totalPrice: 3,
-    canPurchase: false
+    canPurchase: false,
+    isPurchasing: false  //order button was clicked
   }
 
   //doesn't need to be an arrow function since it's not assigned to an event
@@ -84,6 +87,10 @@ class BurgerBuilder extends Component {
     this.updatePurchaseState(updatedIngredients);
   }
 
+  purchaseHandler = () => {
+    this.setState({isPurchasing: true});
+  }
+
   render() {
     /*
     const disabledCheck = {
@@ -99,6 +106,10 @@ class BurgerBuilder extends Component {
 
     return (
       <Aux>
+        <Modal showModal={this.state.isPurchasing}>
+          <OrderSummary ingredients={this.state.ingredients}/>
+        </Modal>
+        
         <Burger ingredients={this.state.ingredients}/>
         
         <BuildControls 
@@ -106,7 +117,8 @@ class BurgerBuilder extends Component {
           ingredientRemoved={this.removeIngredientHandler}
           //disabledBttnObj={disabledCheck}
           price={this.state.totalPrice}
-          purchase={this.state.canPurchase}
+          purchasable={this.state.canPurchase}
+          ordered={this.purchaseHandler}
         />
       </Aux>
     );
