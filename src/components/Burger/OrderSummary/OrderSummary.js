@@ -1,5 +1,6 @@
 import React from "react";
 import Aux from "../../../hoc/Auxiliary";
+import styles from "./OrderSummary.css";
 
 const orderSummary = (props) => {
   const ingredientSummary = [];
@@ -32,6 +33,17 @@ const orderSummary = (props) => {
         {ingredientSummary}
       </ul>
       <p>Continue to Checkout?</p>
+      
+      <button
+        //same as className={"Button Cancel"}
+        className={[styles.Button, styles.Cancel].join(" ")}
+        onClick={props.purchaseCancelled}
+        >CANCEL</button>
+      
+      <button
+        className={[styles.Button, styles.Continue].join(" ")}
+        onClick={props.purchaseContinued}
+        >CONTINUE</button>
     </Aux>
   );
 }

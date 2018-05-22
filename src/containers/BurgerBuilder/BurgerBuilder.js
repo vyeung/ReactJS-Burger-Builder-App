@@ -92,9 +92,14 @@ class BurgerBuilder extends Component {
     this.setState({isPurchasing: true});
   }
 
-  //on clicking backdrop, close the modal thus cancelling order
+  //on clicking backdrop or close button, close the modal thus cancelling order
   purchaseCancelHandler = () => {
     this.setState({isPurchasing: false});
+  }
+
+  //on clicking continue button
+  purchaseContinueHandler = () => {
+    alert("To-Do: Checkout Page!");
   }
 
   render() {
@@ -113,7 +118,11 @@ class BurgerBuilder extends Component {
     return (
       <Aux>
         <Modal showModal={this.state.isPurchasing} closeModal={this.purchaseCancelHandler}>
-          <OrderSummary ingredients={this.state.ingredients}/>
+          <OrderSummary 
+            ingredients={this.state.ingredients}
+            purchaseCancelled={this.purchaseCancelHandler}
+            purchaseContinued={this.purchaseContinueHandler}
+          />
         </Modal>
         
         <Burger ingredients={this.state.ingredients}/>
