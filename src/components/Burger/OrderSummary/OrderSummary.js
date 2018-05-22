@@ -11,7 +11,7 @@ const orderSummary = (props) => {
 
   for(var key in props.ingredients) {
     ingredientSummary.push(
-      <li key={key}>
+      <li key={key} className={styles.li}>
         <span style={capitalize}>{key}</span>: {props.ingredients[key]}
       </li>
     );
@@ -27,12 +27,12 @@ const orderSummary = (props) => {
 
   return (
     <Aux>
-      <h3>Your Order</h3>
+      <h2>Your Order</h2>
       <p>Chosen Burger Ingredients:</p>
-      <ul>
+      <ul className={styles.ul}>
         {ingredientSummary}
       </ul>
-      <p>Continue to Checkout?</p>
+      <p className={styles.p2}>Continue to Checkout?</p>
       
       <button
         //same as className={"Button Cancel"}
