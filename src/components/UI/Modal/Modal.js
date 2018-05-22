@@ -1,19 +1,30 @@
 import React from "react";
 import styles from "./Modal.css";
+import Aux from "../../../hoc/Auxiliary";
+import Backdrop from "../Backdrop/Backdrop";
 
 const modal = (props) => {
-  //showing the modal conditionally
+  //showing the modal conditionally:
+  //  if true, have it slide onto screen and visible.
+  //  if false, have it off screen and invisible.
   const modalAnimation = {
-    //have it slide onto screen or have it off screen
     transform: props.showModal ? "translateY(0)" : "translateY(-100vh)",
-    //have it completely visible or invisible
     opacity: props.showModal ? "1" : "0"
   };
 
   return (
-    <div className={styles.Modal} style={modalAnimation}>
-      {props.children}
-    </div>
+    //want the modal and backdrop to be shown together, so we'll use our Aux
+    <Aux>
+      <Backdrop 
+        showBackdrop={props.showModal}
+        clicked={props.closeModal}
+      />
+
+      <div className={styles.Modal} style={modalAnimation}>
+        {/*children here is the OrderSummary*/}
+        {props.children}
+      </div>
+    </Aux>
   );
 }
 

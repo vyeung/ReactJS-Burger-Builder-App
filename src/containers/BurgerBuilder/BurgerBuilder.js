@@ -22,7 +22,7 @@ class BurgerBuilder extends Component {
     }, 
     totalPrice: 3,
     canPurchase: false,
-    isPurchasing: false  //order button was clicked
+    isPurchasing: false
   }
 
   //doesn't need to be an arrow function since it's not assigned to an event
@@ -87,8 +87,14 @@ class BurgerBuilder extends Component {
     this.updatePurchaseState(updatedIngredients);
   }
 
+  //start purchasing process when order button is clicked
   purchaseHandler = () => {
     this.setState({isPurchasing: true});
+  }
+
+  //on clicking backdrop, close the modal thus cancelling order
+  purchaseCancelHandler = () => {
+    this.setState({isPurchasing: false});
   }
 
   render() {
@@ -106,7 +112,7 @@ class BurgerBuilder extends Component {
 
     return (
       <Aux>
-        <Modal showModal={this.state.isPurchasing}>
+        <Modal showModal={this.state.isPurchasing} closeModal={this.purchaseCancelHandler}>
           <OrderSummary ingredients={this.state.ingredients}/>
         </Modal>
         
