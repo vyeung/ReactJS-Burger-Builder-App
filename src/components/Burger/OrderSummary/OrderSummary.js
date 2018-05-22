@@ -32,7 +32,8 @@ const orderSummary = (props) => {
       <ul className={styles.ul}>
         {ingredientSummary}
       </ul>
-      <p className={styles.p2}>Continue to Checkout?</p>
+      <p className={styles.p2}>Total Price: ${props.price.toFixed(2)}</p>
+      <p className={styles.p3}>Continue to Checkout?</p>
       
       <button
         //same as className={"Button Cancel"}
