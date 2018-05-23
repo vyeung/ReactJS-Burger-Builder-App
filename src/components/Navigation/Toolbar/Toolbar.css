@@ -20,3 +20,10 @@
 .ChangeLogoHeight {
   height: 80%;
 }
+
+/*On mobile devices, the desktop NavItems should be hidden*/
+@media (max-width: 499px) {
+  .HideDesktopNavItems {
+    display: none;
+  }
+}
