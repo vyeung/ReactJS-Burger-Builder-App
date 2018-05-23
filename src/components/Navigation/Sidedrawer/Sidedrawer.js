@@ -2,20 +2,38 @@ import React from "react";
 import styles from "./Sidedrawer.css";
 import Logo from "../../Logo/Logo";
 import NavItems from "../NavItems/NavItems";
+import Backdrop from "../../UI/Backdrop/Backdrop";
+import Aux from "../../../hoc/Auxiliary";
 
 //the Sidedrawer is the navigation for users on mobile devices.
-const sidedrawer = (props) => {
-  return (
-    <div className={styles.Sidedrawer}>
-      {/*wrap Logo with a div to change its height from 100%->11% of Sidedrawer*/}
-      <div className={styles.ChangeLogoHeight}>
-        <Logo />
-      </div>
+const sidedrawer = (props) => 
+{
+  //showing the Sidedrawer conditionally
+  let attachedStyles = [styles.Sidedrawer, styles.Close];
+  if(props.showSD === true) {
+    attachedStyles = [styles.Sidedrawer, styles.Open];
+  }
+  
+  //will be "Sidedrawer Close" or "Sidedrawer Open"
+  attachedStyles = attachedStyles.join(" "); 
 
-      <nav>
-        <NavItems />
-      </nav>
-    </div>
+  return (
+    <Aux>
+      <Backdrop 
+        showBackdrop={props.showSD}
+        clicked={props.closeSD}
+      />
+
+      <div className={attachedStyles}>
+        {/*wrap Logo with a div to change its height from 100%->11% of Sidedrawer*/}
+        <div className={styles.ChangeLogoHeight}>
+          <Logo />
+        </div>
+        <nav>
+          <NavItems />
+        </nav>
+      </div>
+    </Aux>
   );
 };
 
