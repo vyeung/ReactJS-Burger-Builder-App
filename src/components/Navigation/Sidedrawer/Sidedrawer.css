@@ -26,3 +26,7 @@
 .Close {
   transform: translateX(-100%); /*its off screen to the left*/
 }
+
+.ChangeLogoHeight {
+  height: 11%;
+}

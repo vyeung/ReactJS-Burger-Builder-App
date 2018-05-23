@@ -9,7 +9,10 @@ const toolbar = (props) => {
     <header className={styles.Toolbar}>
       <div>MENU</div>
       
-      <Logo />
+      {/*wrap Logo with a div to change its height from 100%->80% of Toolbar*/}
+      <div className={styles.ChangeLogoHeight}>
+        <Logo />
+      </div>
       
       <nav>
         <NavItems />

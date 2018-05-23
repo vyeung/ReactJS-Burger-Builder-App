@@ -7,7 +7,10 @@ import NavItems from "../NavItems/NavItems";
 const sidedrawer = (props) => {
   return (
     <div className={styles.Sidedrawer}>
-      <Logo />
+      {/*wrap Logo with a div to change its height from 100%->11% of Sidedrawer*/}
+      <div className={styles.ChangeLogoHeight}>
+        <Logo />
+      </div>
 
       <nav>
         <NavItems />
