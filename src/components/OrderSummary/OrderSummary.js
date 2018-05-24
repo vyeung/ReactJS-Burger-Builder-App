@@ -1,5 +1,5 @@
 import React from "react";
-import Aux from "../../../hoc/Auxiliary/Auxiliary";
+import Aux from "../../hoc/Auxiliary/Auxiliary";
 import styles from "./OrderSummary.css";
 
 const orderSummary = (props) => {
