@@ -7,7 +7,11 @@ const toolbar = (props) => {
   //toolbar is basically a giant header
   return (
     <header className={styles.Toolbar}>
-      <div>MENU</div>
+      <div className={styles.DrawerToggle} onClick={props.clickToggle}>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
       
       {/*wrap Logo with a div to change its height from 100%->80% of Toolbar*/}
       <div className={styles.ChangeLogoHeight}>
