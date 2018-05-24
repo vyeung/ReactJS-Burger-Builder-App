@@ -3,7 +3,7 @@ import styles from "./Sidedrawer.css";
 import Logo from "../../Logo/Logo";
 import NavItems from "../NavItems/NavItems";
 import Backdrop from "../../UI/Backdrop/Backdrop";
-import Aux from "../../../hoc/Auxiliary";
+import Aux from "../../../hoc/Auxiliary/Auxiliary";
 
 //the Sidedrawer is the navigation for users on mobile devices.
 const sidedrawer = (props) => 
