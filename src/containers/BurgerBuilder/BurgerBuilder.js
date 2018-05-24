@@ -103,7 +103,6 @@ class BurgerBuilder extends Component {
   }
 
   render() {
-    /*
     const disabledCheck = {
       ...this.state.ingredients
     };
@@ -113,7 +112,6 @@ class BurgerBuilder extends Component {
       //ex: {lettuce: true, bacon: false, cheese:false, beef: true}
       disabledCheck[key] = (disabledCheck[key] <= 0);
     }
-    */
 
     return (
       <Aux>
@@ -131,7 +129,7 @@ class BurgerBuilder extends Component {
         <BuildControls 
           ingredientAdded={(t) => this.addIngredientHandler(t)}
           ingredientRemoved={this.removeIngredientHandler}
-          //disabledBttnObj={disabledCheck}
+          disabledBttnObj={disabledCheck}
           price={this.state.totalPrice}
           purchasable={this.state.canPurchase}
           ordered={this.purchaseHandler}

@@ -21,7 +21,7 @@ const buildControls = (props) => {
           myLabel={ctrl.label}
           added={() => props.ingredientAdded(ctrl.type)}
           removed={() => props.ingredientRemoved(ctrl.type)}
-          //disabledBttnVal={props.disabledBttnObj[ctrl.type]}
+          disabledBttnVal={props.disabledBttnObj[ctrl.type]}
         />
       ))}
 

@@ -12,7 +12,7 @@ const singleControl = (props) => {
       <button 
         className={styles.Less} 
         onClick={props.removed}
-        /*disabled={props.disabledBttnVal}*/> - </button>
+        disabled={props.disabledBttnVal}> - </button>
       <button 
         className={styles.More} 
         onClick={props.added}> + </button>
