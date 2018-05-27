@@ -22,12 +22,24 @@ class BurgerBuilder extends Component {
       bacon: 0,
       cheese: 0,
       beef: 0
-    }, 
+    },
     totalPrice: 3,
     canPurchase: false,
     isPurchasing: false,
-    isLoading: false
+    isLoading: false,
+    //ingredLoadError: false
   }
+
+  //get initialized ingredients data from the firebase database
+  // componentDidMount() {
+  //   axios.get("/ingredients.json")
+  //     .then(response => {
+  //       this.setState({ingredients: response.data});
+  //     })
+  //     .catch(error => {
+  //       this.setState({ingredLoadError: true});
+  //     });
+  // }
 
   //doesn't need to be an arrow function since it's not assigned to an event
   updatePurchaseState(ingreds) {
@@ -103,7 +115,6 @@ class BurgerBuilder extends Component {
 
   //on clicking continue button
   purchaseContinueHandler = () => {
-    //alert("To-Do: Checkout Page!");
     this.setState({isLoading: true});
 
     const order = {
@@ -123,7 +134,7 @@ class BurgerBuilder extends Component {
     };
 
     //adding .json on the end is required when using firebase
-    axios.post("/orders", order)
+    axios.post("/orders.json", order)
       //show spinner for at least 2s even if post request is finished first 
       .then(response => {
         setTimeout(() => this.setState({isLoading: false, isPurchasing: false}), 2000);
@@ -157,6 +168,27 @@ class BurgerBuilder extends Component {
         purchaseContinued={this.purchaseContinueHandler} />
     }
 
+    /*let burger;
+    if(this.state.ingredLoadError === true) {
+      burger = <p style={{textAlign:"center"}}>Can't Load Ingredients!</p>
+    }
+    else {
+      burger = (
+        <Aux>
+          <Burger ingredients={this.state.ingredients}/>
+          <BuildControls 
+            ingredientAdded={(t) => this.addIngredientHandler(t)}
+            ingredientRemoved={this.removeIngredientHandler}
+            disabledBttnObj={disabledCheck}
+            price={this.state.totalPrice}
+            purchasable={this.state.canPurchase}
+            ordered={this.purchaseHandler}
+          />
+        </Aux>
+      );
+    }
+    */
+
     return (
       <Aux>
         {/*performance check that renders Modal and OrderSummary only when order button is clicked */}
@@ -165,7 +197,7 @@ class BurgerBuilder extends Component {
             {orderSummary}
           </Modal>
         }
-
+        
         <Burger ingredients={this.state.ingredients}/>
         
         <BuildControls 
@@ -175,7 +207,9 @@ class BurgerBuilder extends Component {
           price={this.state.totalPrice}
           purchasable={this.state.canPurchase}
           ordered={this.purchaseHandler}
-        />
+        /> 
+
+        {/*{burger}*/}
       </Aux>
     );
   }
