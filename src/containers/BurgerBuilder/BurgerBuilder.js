@@ -5,7 +5,8 @@ import BuildControls from "../../components/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/OrderSummary/OrderSummary";
 import Spinner from "../../components/UI/Spinner/Spinner";
-import Axios from "../../axios-orders";
+import axios from "../../axios-orders";
+import errorHandler from "../../hoc//ErrorHandler/ErrorHandler";
 
 const INGREDIENT_PRICES = {
   lettuce: 0.5,
@@ -122,7 +123,7 @@ class BurgerBuilder extends Component {
     };
 
     //adding .json on the end is required when using firebase
-    Axios.post("/orders.json", order)
+    axios.post("/orders", order)
       //show spinner for at least 2s even if post request is finished first 
       .then(response => {
         setTimeout(() => this.setState({isLoading: false, isPurchasing: false}), 2000);
@@ -180,4 +181,4 @@ class BurgerBuilder extends Component {
   }
 }
 
-export default BurgerBuilder;
+export default errorHandler(BurgerBuilder, axios);
