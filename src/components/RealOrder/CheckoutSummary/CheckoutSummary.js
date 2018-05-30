@@ -5,7 +5,7 @@ import Burger from "../../Burger/Burger";
 const checkoutSummary = (props) => {
   return (
     <div className={styles.CheckoutSummary}>
-      <h1>Enjoy!</h1>
+      <h1>Final Preview</h1>
       
       <div className={styles.BurgerPreview}>
         <Burger ingredients={props.checkoutIngreds} />
@@ -13,12 +13,12 @@ const checkoutSummary = (props) => {
 
       <button
         className={[styles.Button, styles.Cancel].join(" ")}
-        onClick={props.purchaseCancelled}
+        onClick={props.checkoutCancelled}
         >CANCEL</button>
       
       <button
         className={[styles.Button, styles.Continue].join(" ")}
-        onClick={props.purchaseContinued}
+        onClick={props.checkoutContinued}
         >CONTINUE</button>
     </div>
   );
