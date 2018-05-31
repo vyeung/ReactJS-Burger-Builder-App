@@ -143,8 +143,8 @@ class BurgerBuilder extends Component {
     //     setTimeout(() => this.setState({isLoading: false, isPurchasing: false}), 2000);
     //   });
 
-    //go to checkout page and pass the ingredients user chose
-    this.props.history.push("/checkout", this.state.ingredients);
+    //go to checkout page and pass our entire state object to it
+    this.props.history.push("/checkout", this.state);
   }
 
   render() {

@@ -10,11 +10,13 @@ class Checkout extends Component {
       bacon: 0,
       cheese: 0,
       beef: 0
-    }
+    },
+    checkoutPrice: 0
   }
 
   componentDidMount() {
-    this.setState({checkoutIngreds: this.props.history.location.state});
+    this.setState({checkoutIngreds: this.props.location.state.ingredients});
+    this.setState({checkoutPrice: this.props.location.state.totalPrice});
   }
   
   checkoutCancelledHandler = () => {
@@ -35,7 +37,10 @@ class Checkout extends Component {
           checkoutContinued={this.checkoutContinuedHandler}
         />
 
-        <Route path={this.props.match.url + "/contact-data"} component={ContactData} />
+        <Route 
+          path={this.props.match.url + "/contact-data"} 
+          render={() => <ContactData checkoutIngreds={this.state.checkoutIngreds} checkoutPrice={this.state.checkoutPrice}/>}
+        />
       </div>
     );
   }
