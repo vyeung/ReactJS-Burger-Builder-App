@@ -40,7 +40,10 @@ class ContactData extends Component {
     axios.post("/orders.json", order)
       //show spinner for at least 2s even if post request is finished first 
       .then(response => {
-        setTimeout(() => this.setState({isLoading: false}), 2000);
+        setTimeout(() => {
+          this.setState({isLoading: false});
+          this.props.history.push("/");  //go to homepage when done
+        }, 2000);
       })
       .catch(error => {
         setTimeout(() => this.setState({isLoading: false}), 2000);
