@@ -72,7 +72,7 @@ class ContactData extends Component {
 
     return (
       <div className={styles.ContactData}>
-      <h4>Enter Your Contact Data</h4>
+        <h3 className={styles.Header}>Enter Your Contact Data</h3>
         {contactData}
       </div>
     );
