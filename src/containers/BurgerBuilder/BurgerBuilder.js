@@ -4,7 +4,6 @@ import Burger from "../../components/Burger/Burger"
 import BuildControls from "../../components/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/OrderSummary/OrderSummary";
-import Spinner from "../../components/UI/Spinner/Spinner";
 import axios from "../../axios-orders";
 import errorHandler from "../../hoc//ErrorHandler/ErrorHandler";
 
@@ -26,7 +25,6 @@ class BurgerBuilder extends Component {
     totalPrice: 3,
     canPurchase: false,
     isPurchasing: false,
-    isLoading: false,
     //ingredLoadError: false
   }
 
@@ -114,35 +112,8 @@ class BurgerBuilder extends Component {
   }
 
   //on clicking continue button
-  purchaseContinueHandler = () => {
-    // this.setState({isLoading: true});
-
-    // const order = {
-    //   ingredients: this.state.ingredients,
-    //   price: this.state.totalPrice,
-    //   customer: {
-    //     name: "John Smith",
-    //     address: {
-    //       city: "testville",
-    //       street: "Test Ave 11",
-    //       zip: 54323,
-    //       country: "USA"
-    //     },
-    //     email: "test@test.com"
-    //   },
-    //   deliveryMethod: "fastest"
-    // };
-
-    // //adding .json on the end is required when using firebase
-    // axios.post("/orders.json", order)
-    //   //show spinner for at least 2s even if post request is finished first 
-    //   .then(response => {
-    //     setTimeout(() => this.setState({isLoading: false, isPurchasing: false}), 2000);
-    //   })
-    //   .catch(error => {
-    //     setTimeout(() => this.setState({isLoading: false, isPurchasing: false}), 2000);
-    //   });
-
+  purchaseContinueHandler = () => 
+  {
     //go to checkout page and pass our entire state object to it
     this.props.history.push("/checkout", this.state);
   }
@@ -156,19 +127,6 @@ class BurgerBuilder extends Component {
       //T means there are no ingreds to remove and so bttn will be disabled.
       //ex: {lettuce: true, bacon: false, cheese:false, beef: true}
       disabledCheck[key] = (disabledCheck[key] <= 0);
-    }
-
-    //when to show spinner or not
-    let orderSummary;
-    if(this.state.isLoading === true) {
-      orderSummary = <Spinner />;
-    }
-    else {
-      orderSummary = <OrderSummary 
-        ingredients={this.state.ingredients}
-        price={this.state.totalPrice}
-        purchaseCancelled={this.purchaseCancelHandler}
-        purchaseContinued={this.purchaseContinueHandler} />
     }
 
     /*let burger;
@@ -197,7 +155,12 @@ class BurgerBuilder extends Component {
         {/*performance check that renders Modal and OrderSummary only when order button is clicked */}
         {this.state.isPurchasing &&
           <Modal showModal={this.state.isPurchasing} closeModal={this.purchaseCancelHandler}>
-            {orderSummary}
+            <OrderSummary 
+              ingredients={this.state.ingredients}
+              price={this.state.totalPrice}
+              purchaseCancelled={this.purchaseCancelHandler}
+              purchaseContinued={this.purchaseContinueHandler} 
+            />
           </Modal>
         }
         
