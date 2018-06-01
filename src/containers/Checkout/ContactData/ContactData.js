@@ -8,33 +8,21 @@ class ContactData extends Component {
     orderForm: {
       name: "",
       email: "",
-      street: "",
-      zip: "",
+      address: "",
+      creditCardNum: "",
       deliveryMethod: ""
     },
     isLoading: false
   }
 
   orderHandler = (event) => {
-    //prevent page from reloading
-    event.preventDefault();
-
+    event.preventDefault();  //prevent page from reloading
     this.setState({isLoading: true});
 
     const order = {
       ingredients: this.props.checkoutIngreds,
       price: this.props.checkoutPrice,
-      customer: {
-        name: "John Smith",
-        address: {
-          city: "testville",
-          street: "Test Ave 11",
-          zip: 54323,
-          country: "USA"
-        },
-        email: "test@test.com"
-      },
-      deliveryMethod: "fastest"
+      orderData: this.state.orderForm
     };
 
     //adding .json on the end is required when using firebase
@@ -72,7 +60,7 @@ class ContactData extends Component {
     }
     else {
       contactData = (
-        <form action="">
+        <form onSubmit={this.orderHandler}>
           <input 
             className={styles.Input}
             type="text"
@@ -88,17 +76,17 @@ class ContactData extends Component {
           <input 
             className={styles.Input}
             type="text"
-            name="street"
-            placeholder="Street..."
+            name="address"
+            placeholder="City, Street, Zip Code..."
             onChange={this.inputEnteredHandler} />
           <input 
             className={styles.Input}
             type="text"
-            name="zip"
-            placeholder="Zip Code..."
+            name="creditCardNum"
+            placeholder="Credit Card Number..."
             onChange={this.inputEnteredHandler} />
             
-          <select className={styles.Input} name="delivery" defaultValue={-1} onChange={this.inputEnteredHandler}>
+          <select className={styles.Input} name="deliveryMethod" defaultValue={-1} onChange={this.inputEnteredHandler}>
             <option value="-1" disabled>Select a Delivery Method...</option>
             <option value="fastest">Fastest</option>
             <option value="cheapest">Cheapest</option>
@@ -106,7 +94,6 @@ class ContactData extends Component {
           
           <button
             className={[styles.Button, styles.Continue].join(" ")}
-            onClick={this.orderHandler}
             >Confirm and Pay</button>
         </form>
       );
