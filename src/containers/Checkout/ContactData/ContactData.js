@@ -5,11 +5,12 @@ import Spinner from "../../../components/UI/Spinner/Spinner";
 
 class ContactData extends Component {
   state = {
-    name: "",
-    email: "",
-    address: {
+    orderForm: {
+      name: "",
+      email: "",
       street: "",
-      zip: ""
+      zip: "",
+      deliveryMethod: ""
     },
     isLoading: false
   }
@@ -50,7 +51,21 @@ class ContactData extends Component {
       });
   }
 
+  inputEnteredHandler = (event) => {
+    //console.log(event.target.value);
+    //console.log(event.target.name);
+    //console.log(event.target.placeholder);
+
+    const updatedForm = {
+      ...this.state.orderForm  //make copy
+    };
+    updatedForm[event.target.name] = event.target.value;  //do update
+    this.setState({orderForm: updatedForm});  //setState
+  }
+
   render() {
+    console.log(this.state.orderForm);
+    
     let contactData;
     if(this.state.isLoading === true) {
       contactData = <Spinner />
@@ -58,10 +73,37 @@ class ContactData extends Component {
     else {
       contactData = (
         <form action="">
-          <input className={styles.Input} type="text" name="name" placeholder="Your Name..." />
-          <input className={styles.Input} type="email" name="email" placeholder="Your Email..." />
-          <input className={styles.Input} type="text" name="street" placeholder="Street..." />
-          <input className={styles.Input} type="text" name="zip" placeholder="Zip Code..." />
+          <input 
+            className={styles.Input}
+            type="text"
+            name="name"
+            placeholder="Your Name..." 
+            onChange={this.inputEnteredHandler} />
+          <input 
+            className={styles.Input}
+            type="email"
+            name="email"
+            placeholder="Your Email..." 
+            onChange={this.inputEnteredHandler} />
+          <input 
+            className={styles.Input}
+            type="text"
+            name="street"
+            placeholder="Street..."
+            onChange={this.inputEnteredHandler} />
+          <input 
+            className={styles.Input}
+            type="text"
+            name="zip"
+            placeholder="Zip Code..."
+            onChange={this.inputEnteredHandler} />
+            
+          <select className={styles.Input} name="delivery" defaultValue={-1} onChange={this.inputEnteredHandler}>
+            <option value="-1" disabled>Select a Delivery Method...</option>
+            <option value="fastest">Fastest</option>
+            <option value="cheapest">Cheapest</option>
+          </select>
+          
           <button
             className={[styles.Button, styles.Continue].join(" ")}
             onClick={this.orderHandler}
