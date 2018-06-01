@@ -10,7 +10,7 @@ class ContactData extends Component {
       email: "",
       address: "",
       creditCardNum: "",
-      deliveryMethod: ""
+      deliveryMethod: "fastest"
     },
     isLoading: false
   }
@@ -42,7 +42,33 @@ class ContactData extends Component {
   inputEnteredHandler = (event) => {
     //console.log(event.target.value);
     //console.log(event.target.name);
-    //console.log(event.target.placeholder);
+    console.log(event.target.validity);
+
+    if(event.target.name === "name"){
+      //don't allow user to enter excess whitespace between strings
+      event.target.value = event.target.value.replace(/\s{2,}/g, " ");
+
+      //using a regex so single spaces don't count as a whole string
+      let numStrings = event.target.value.trim().split(/\s+/).length;
+      if(numStrings < 2) {
+        //custom error message
+        event.target.setCustomValidity("Enter your first and last name");
+      }
+      else {
+        event.target.setCustomValidity("");  //must specify this else
+      }
+    }
+
+    if(event.target.name === "creditCardNum") {
+      //using regex to only allow numbers to be entered
+      event.target.value = event.target.value.replace(/[^0-9.]/g, "");
+      if(event.target.validity.patternMismatch === true) {
+        event.target.setCustomValidity("Enter 16 numbers without spaces or hyphens");
+      }
+      else {
+        event.target.setCustomValidity("");
+      }
+    }
 
     const updatedForm = {
       ...this.state.orderForm  //make copy
@@ -65,25 +91,31 @@ class ContactData extends Component {
             className={styles.Input}
             type="text"
             name="name"
-            placeholder="Your Name..." 
+            placeholder="Your First and Last Name..."
+            required
             onChange={this.inputEnteredHandler} />
           <input 
             className={styles.Input}
             type="email"
             name="email"
-            placeholder="Your Email..." 
+            placeholder="Your Email..."
+            required
             onChange={this.inputEnteredHandler} />
-          <input 
+          <input
             className={styles.Input}
             type="text"
             name="address"
-            placeholder="City, Street, Zip Code..."
+            placeholder="Street, City, Zip Code..."
+            required
             onChange={this.inputEnteredHandler} />
           <input 
             className={styles.Input}
             type="text"
             name="creditCardNum"
             placeholder="Credit Card Number..."
+            required
+            pattern="\d{16}"  //looking for 16 digit numbers
+            maxLength={16}
             onChange={this.inputEnteredHandler} />
             
           <select className={styles.Input} name="deliveryMethod" defaultValue={-1} onChange={this.inputEnteredHandler}>
