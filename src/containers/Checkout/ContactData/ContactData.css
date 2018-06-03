@@ -4,10 +4,9 @@
   text-align: center;
   box-shadow: 0 5px 6px #ccc;
   border: 1px solid #746868;
-  padding: 10px 50px;
+  padding: 10px 30px;
   box-sizing: border-box;
 }
-
 @media (min-width: 600px) {
   .ContactData {
     width: 500px;
@@ -27,6 +26,44 @@
 .Input:focus {
   outline: none;
   border: 1px solid #5d97da;
+}
+
+.City {
+  display: inline-block;
+  float: left;
+  margin: -3px 0 30px 0;
+  width: 40%;
+}
+/*for mobile*/
+@media (max-width: 500px) {
+  .City {
+    width: 33%;
+  }
+}
+
+.State {
+  display: inline-block;
+  margin: -3px 0;
+  width: 25%;
+}
+/*for mobile*/
+@media (max-width: 500px) {
+  .State {
+    width: 30%;
+  }
+}
+
+.Zip {
+  display: inline-block;
+  float: right;
+  margin: -3px 0;
+  width: 25%;
+}
+/*for mobile*/
+@media (max-width: 500px) {
+  .Zip {
+    width: 28%;
+  }
 }
 
 .Header {

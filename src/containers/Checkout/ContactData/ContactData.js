@@ -52,7 +52,7 @@ class ContactData extends Component {
   inputEnteredHandler = (event) => {
     //console.log(event.target.value);
     //console.log(event.target.name);
-    //console.log(event.target.validity);
+    console.log(event.target.validity);
 
     if(event.target.name === "name") {
       //don't allow user to enter excess whitespace between strings
@@ -73,13 +73,22 @@ class ContactData extends Component {
       //using regex to only allow numbers to be entered
       event.target.value = event.target.value.replace(/[^0-9.]/g, "");
       if(event.target.validity.patternMismatch === true) {
-        event.target.setCustomValidity("Enter 16 numbers without spaces or hyphens");
+        event.target.setCustomValidity("Enter 16 digits without spaces or hyphens");
       }
       else {
         event.target.setCustomValidity("");
       }
     }
 
+    if(event.target.name === "zip") {
+      event.target.value = event.target.value.replace(/[^0-9.]/g, "");
+      if(event.target.validity.patternMismatch === true) {
+        event.target.setCustomValidity("Enter a 5 digit number");
+      }
+      else {
+        event.target.setCustomValidity("");
+      }
+    }
 
     const updatedForm = {...this.state.orderForm};       //make copy
     updatedForm[event.target.name] = event.target.value; //do update
@@ -103,14 +112,13 @@ class ContactData extends Component {
     }
     else {
       contactData = (
-        <form onSubmit={this.orderHandler}>
+        <form onSubmit={this.orderHandler} >      
           <input 
             className={styles.Input}
             type="text"
             name="name"
             placeholder="Your First and Last Name..."
             required
-            onBlur={this.checkHasErrorHandler}
             onChange={this.inputEnteredHandler} />
           <input 
             className={styles.Input}
@@ -129,28 +137,42 @@ class ContactData extends Component {
             required
             onChange={this.inputEnteredHandler} />
           <input 
-            style={{display:"inline-block",float:"left", margin:"-3px 0 30px 0", width:"33%"}}
-            className={styles.Input}
+            className={[styles.Input, styles.City].join(" ")}
             type="text"
             name="city"
             placeholder="City..."
             required
             onChange={this.inputEnteredHandler} />
+          <select 
+            className={[styles.Input, styles.State].join(" ")} 
+            name="state" required onChange={this.inputEnteredHandler}>
+            <option value="">State...</option>
+            <option value="AL">AL</option> <option value="AK">AK</option> <option value="AZ">AZ</option>
+            <option value="AR">AR</option> <option value="CA">CA</option> <option value="CO">CO</option>
+            <option value="CT">CT</option> <option value="DE">DE</option> <option value="FL">FL</option>
+            <option value="GA">GA</option> <option value="HI">HI</option> <option value="ID">ID</option>
+            <option value="IL">IL</option> <option value="IN">IN</option> <option value="IA">IA</option>
+            <option value="KS">KS</option> <option value="KY">KY</option> <option value="LA">LA</option>
+            <option value="ME">ME</option> <option value="MD">MD</option> <option value="MA">MA</option>
+            <option value="MI">MI</option> <option value="MN">MN</option> <option value="MS">MS</option>
+            <option value="MO">MO</option> <option value="MT">MT</option> <option value="NE">NE</option>
+            <option value="NV">NV</option> <option value="NH">NH</option> <option value="NJ">NJ</option>
+            <option value="NM">NM</option> <option value="NY">NY</option> <option value="NC">NC</option>
+            <option value="ND">ND</option> <option value="OH">OH</option> <option value="OK">OK</option>
+            <option value="OR">OR</option> <option value="PA">PA</option> <option value="RI">RI</option>
+            <option value="SC">SC</option> <option value="SD">SD</option> <option value="TN">TN</option>
+            <option value="TX">TX</option> <option value="UT">UT</option> <option value="VT">VT</option>
+            <option value="VA">VA</option> <option value="WA">WA</option> <option value="WV">WV</option>
+            <option value="WI">WI</option> <option value="WY">WY</option>
+          </select>
           <input 
-            style={{display:"inline-block", margin:"-3px 0", width:"29%"}}
-            className={styles.Input}
-            type="text"
-            name="state"
-            required
-            placeholder="State..."
-            onChange={this.inputEnteredHandler} />
-          <input 
-            style={{display:"inline-block",float:"right", margin:"-3px 0", width:"30%"}}
-            className={styles.Input}
+            className={[styles.Input, styles.Zip].join(" ")}
             text="text"
             name="zip"
             required
             placeholder="Zip..."
+            pattern="\d{5}"
+            maxLength={5}
             onChange={this.inputEnteredHandler} />
 
           <input 
