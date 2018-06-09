@@ -19,7 +19,7 @@ const checkoutSummary = (props) => {
       <button
         className={[styles.Button, styles.Continue].join(" ")}
         onClick={props.checkoutContinued}
-        >CONTINUE</button>
+        >NEXT</button>
     </div>
   );
 }
