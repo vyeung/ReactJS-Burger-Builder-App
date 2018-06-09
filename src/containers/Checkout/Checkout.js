@@ -15,8 +15,15 @@ class Checkout extends Component {
   }
 
   componentDidMount() {
-    this.setState({checkoutIngreds: this.props.location.state.ingredients});
-    this.setState({checkoutPrice: this.props.location.state.totalPrice});
+    //redirect to "/" if on checkout page and have no ingredients.
+    //also takes care of case when user types /checkout into url.
+    if(this.props.location.state === undefined) {
+      this.props.history.push("/");
+    }
+    else {
+      this.setState({checkoutIngreds: this.props.location.state.ingredients});
+      this.setState({checkoutPrice: this.props.location.state.totalPrice});
+    }
   }
   
   checkoutCancelledHandler = () => {
