@@ -5,10 +5,15 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
-import {createStore} from "redux";
-import reducer from "./store/reducers/reducer";
+import {createStore, combineReducers} from "redux";
 
-const myStore = createStore(reducer);
+import burgerBuilderReducer from "./store/reducers/burgerBuilder-R";
+
+const rootReducer = combineReducers({
+  toBurgerBuilderReducer: burgerBuilderReducer
+});
+
+const myStore = createStore(rootReducer);
 
 const burgerApp = (
   <Provider store={myStore}>
