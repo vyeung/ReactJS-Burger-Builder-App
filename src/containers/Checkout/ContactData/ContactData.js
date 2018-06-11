@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {connect} from "react-redux";
 import styles from "./ContactData.css";
 import axios from "../../../axios-orders";
 import Spinner from "../../../components/UI/Spinner/Spinner";
@@ -30,8 +31,8 @@ class ContactData extends Component {
     delete this.state.orderForm.zip;
 
     const order = {
-      ingredients: this.props.checkoutIngreds,
-      price: this.props.checkoutPrice,
+      ingredients: this.props.globalIngreds,
+      price: this.props.globalTotalPrice,
       orderData: this.state.orderForm
     };
 
@@ -92,7 +93,6 @@ class ContactData extends Component {
 
     const updatedForm = {...this.state.orderForm};       //make copy
     updatedForm[event.target.name] = event.target.value; //do update
-
     this.setState({orderForm: updatedForm}, () => {
       //update fullAddress in callback function so it isn't 1 char behind
       updatedForm.fullAddress = 
@@ -207,4 +207,11 @@ class ContactData extends Component {
   }
 }
 
-export default ContactData;
+const mapStateToProps = (state) => {
+  return {
+    globalIngreds: state.toBurgerBuilderReducer.ingredients,
+    globalTotalPrice: state.toBurgerBuilderReducer.totalPrice
+  };
+}
+
+export default connect(mapStateToProps)(ContactData);
