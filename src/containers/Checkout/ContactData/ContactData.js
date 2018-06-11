@@ -3,6 +3,8 @@ import {connect} from "react-redux";
 import styles from "./ContactData.css";
 import axios from "../../../axios-orders";
 import Spinner from "../../../components/UI/Spinner/Spinner";
+import errorHandler from "../../../hoc/ErrorHandler/ErrorHandler";
+import * as contactDataActions from "../../../store/actions/contactData-A";
 
 class ContactData extends Component {
   state = {
@@ -17,12 +19,10 @@ class ContactData extends Component {
       creditCardNum: "",
       deliveryMethod: "fastest"
     },
-    isLoading: false
   }
 
   orderHandler = (event) => {
     event.preventDefault();  //prevent page from reloading
-    this.setState({isLoading: true});
 
     //just need fullAddress in database, so will prevent following from being sent
     delete this.state.orderForm.street;
@@ -36,18 +36,7 @@ class ContactData extends Component {
       orderData: this.state.orderForm
     };
 
-    //adding .json on the end is required when using firebase
-    axios.post("/orders.json", order)
-      //show spinner for at least 2s even if post request is finished first 
-      .then(response => {
-        setTimeout(() => {
-          this.setState({isLoading: false});
-          this.props.history.push("/");  //go to homepage when done
-        }, 2000);
-      })
-      .catch(error => {
-        setTimeout(() => this.setState({isLoading: false}), 2000);
-      });
+    this.props.onOrder(order);
   }
 
   inputEnteredHandler = (event) => {
@@ -107,7 +96,7 @@ class ContactData extends Component {
     console.log(this.state.orderForm);
     
     let contactData;
-    if(this.state.isLoading === true) {
+    if(this.props.globalIsLoading === true) {
       contactData = <Spinner />
     }
     else {
@@ -210,8 +199,15 @@ class ContactData extends Component {
 const mapStateToProps = (state) => {
   return {
     globalIngreds: state.toBurgerBuilderReducer.ingredients,
-    globalTotalPrice: state.toBurgerBuilderReducer.totalPrice
+    globalTotalPrice: state.toBurgerBuilderReducer.totalPrice,
+    globalIsLoading: state.toContactDataReducer.isLoading
   };
 }
 
-export default connect(mapStateToProps)(ContactData);
+const mapDispatchToProps = dispatch => {
+  return {
+    onOrder: (orderData) => dispatch(contactDataActions.purchaseStart(orderData))
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(errorHandler(ContactData, axios));
