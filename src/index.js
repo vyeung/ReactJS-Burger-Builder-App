@@ -5,15 +5,18 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
-import {createStore, combineReducers} from "redux";
-
+import {createStore, combineReducers, applyMiddleware, compose} from "redux";
+import thunk from "redux-thunk";
 import burgerBuilderReducer from "./store/reducers/burgerBuilder-R";
+
+//need to use this line when using Redux DevTools and Middleware
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
   toBurgerBuilderReducer: burgerBuilderReducer
 });
 
-const myStore = createStore(rootReducer);
+const myStore = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
 const burgerApp = (
   <Provider store={myStore}>
