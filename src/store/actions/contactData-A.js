@@ -17,7 +17,7 @@ export const purchaseFailure = (error) => {
   };
 }
 
-//async AC
+//async action creator
 export const purchaseStart = (orderData) => {
   return dispatch => {
     dispatch(purchaseStart2());
@@ -28,10 +28,12 @@ export const purchaseStart = (orderData) => {
       .then(response => {
         setTimeout(() => {
           dispatch(purchaseSuccess(response.data.name, orderData));
+          window.location.replace("/");  //redirect and reload to homepage when done
         }, 2000);
       })
       .catch(error => {
         dispatch(purchaseFailure(error));
+        window.location.replace("/");
       });
   };
 }
