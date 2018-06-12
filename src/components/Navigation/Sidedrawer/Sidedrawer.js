@@ -29,7 +29,7 @@ const sidedrawer = (props) =>
         <div className={styles.ChangeLogoHeight}>
           <Logo />
         </div>
-        <nav>
+        <nav onClick={props.closeSD}>
           <NavItems />
         </nav>
       </div>
