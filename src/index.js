@@ -9,13 +9,15 @@ import {createStore, combineReducers, applyMiddleware, compose} from "redux";
 import thunk from "redux-thunk";
 import burgerBuilderReducer from "./store/reducers/burgerBuilder-R";
 import contactDataReducer from "./store/reducers/contactData-R";
+import myOrdersReducer from "./store/reducers/myOrders-R";
 
 //need to use this line when using Redux DevTools and Middleware
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
   toBurgerBuilderReducer: burgerBuilderReducer,
-  toContactDataReducer: contactDataReducer
+  toContactDataReducer: contactDataReducer,
+  toMyOrdersReducer: myOrdersReducer
 });
 
 const myStore = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
