@@ -1,7 +1,7 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-  orders: [],
+  orderId: "",
   isLoading: false
 };
 
@@ -12,21 +12,16 @@ const contactDataReducer = (state=initialState, action) => {
       isLoading: true
     };
   }
-  
   else if(action.type === actionTypes.PURCHASE_SUCCESS) {
-    const mergeIdAndData = {
-      ...action.orderData,
-      id: action.orderId
-    };
     return {
       ...state,
-      orders: state.orders.concat(mergeIdAndData),
+      orderId: action.orderId,
       isLoading: false
     };
   }
-
   else if(action.type === actionTypes.PURCHASE_FAILURE) {
     return {
+      ...state,
       isLoading: false
     };
   }

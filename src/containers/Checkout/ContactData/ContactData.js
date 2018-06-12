@@ -204,7 +204,7 @@ const mapStateToProps = (state) => {
   };
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     onOrder: (orderData) => dispatch(contactDataActions.purchaseStart(orderData))
   };

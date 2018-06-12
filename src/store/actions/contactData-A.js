@@ -1,12 +1,11 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../axios-orders";
 
-export const purchaseSuccess = (id, orderData) => {
-  //the id is for debugging and not sent in the order submit object
+export const purchaseSuccess = (id) => {
+  //the id is for debugging and not sent in the final order object
   return {
     type: actionTypes.PURCHASE_SUCCESS,
-    orderId: id,
-    orderData: orderData
+    orderId: id
   };
 }
 
@@ -21,13 +20,12 @@ export const purchaseFailure = (error) => {
 export const purchaseStart = (orderData) => {
   return dispatch => {
     dispatch(purchaseStart2());
-
     //adding .json on the end is required when using firebase
     axios.post("/orders.json", orderData)
       //show spinner for at least 2s even if post request is finished first 
       .then(response => {
         setTimeout(() => {
-          dispatch(purchaseSuccess(response.data.name, orderData));
+          dispatch(purchaseSuccess(response.data.name));
           window.location.replace("/");  //redirect and reload to homepage when done
         }, 2000);
       })
