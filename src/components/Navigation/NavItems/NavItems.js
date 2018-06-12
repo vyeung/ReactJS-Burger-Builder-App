@@ -18,6 +18,12 @@ const navItems = () => {
           activeClassName={styles.active}
           >My Orders</NavLink>
       </li>
+      <li className={styles.Item}>
+        <NavLink 
+          to="/auth"
+          activeClassName={styles.active}
+          >Authenticate</NavLink>
+      </li>
     </ul>
   );
 }
