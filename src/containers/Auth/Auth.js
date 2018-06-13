@@ -8,7 +8,8 @@ class Auth extends Component {
     authForm: {
       email: "",
       password: ""
-    }
+    },
+    isSignUp: true  //assume always start in signup mode
   }
   
   inputEnteredHandler = (event) => {
@@ -30,7 +31,11 @@ class Auth extends Component {
 
   submitHandler = (event) => {
     event.preventDefault();
-    this.props.onAuth(this.state.authForm.email.value, this.state.authForm.password.value);
+    this.props.onAuth(this.state.authForm.email, this.state.authForm.password, this.state.isSignUp);
+  }
+
+  switchAuthModeHandler = () => {
+    this.setState({isSignUp: false});
   }
 
   render() {
@@ -54,12 +59,13 @@ class Auth extends Component {
             onChange={this.inputEnteredHandler} />
             
           <button
-            className={[styles.Button, styles.Continue].join(" ")}
-            >Sign-In</button>
-
+            className={[styles.Button, styles.Login].join(" ")}
+            onClick={this.switchAuthModeHandler}
+            >Login</button>
+          or
           <button
-            className={[styles.Button, styles.Continue].join(" ")}
-            >Sign-Up</button>
+            className={[styles.Button, styles.Register].join(" ")}
+            >Register</button>
         </form>
       </div>
     );
@@ -68,7 +74,7 @@ class Auth extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAuth: (email, password) => dispatch(authActions.authStart(email, password))
+    onAuth: (email, password, isSignUp) => dispatch(authActions.authStart(email, password, isSignUp))
   };
 }
 
