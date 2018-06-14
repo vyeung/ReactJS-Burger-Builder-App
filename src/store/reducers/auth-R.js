@@ -31,6 +31,16 @@ const authReducer = (state=initialState, action) => {
       isLoading: false
     };
   }
+  else if(action.type === actionTypes.AUTH_LOGOUT) {
+    //a logout should reset all auth states
+    return {
+      ...state,
+      token: null,
+      userId: null,
+      error: null,
+      isLoading: false
+    };
+  }
 
   return state;
 }

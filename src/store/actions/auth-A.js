@@ -43,6 +43,7 @@ export const authStart = (email, password, isSignUp) => {
       .then(response => {
         console.log(response);
         dispatch(authSuccess(response.data.idToken, response.data.localId));
+        dispatch(checkAuthTimeout(response.data.expiresIn));  //3600s = 1hr
       })
       .catch(err => {
         console.log(err.response);
@@ -55,5 +56,19 @@ export const authStart = (email, password, isSignUp) => {
 export const authStart2 = () => {
   return {
     type: actionTypes.AUTH_START
+  };
+};
+
+export const checkAuthTimeout = (expirationTime) => {
+  return dispatch => {
+    setTimeout(() => {
+      dispatch(logout());
+    }, expirationTime*1000); //since setTimeout is in ms
+  };
+};
+
+export const logout = () => {
+  return {
+    type: actionTypes.AUTH_LOGOUT
   };
 };
