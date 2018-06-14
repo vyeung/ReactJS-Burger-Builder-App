@@ -39,8 +39,23 @@ class Auth extends Component {
   }
 
   render() {
+    let authMessage;
+    if(this.props.globalError) {
+      //extract message field from globalError object
+      authMessage = <p className={styles.errMsg}>{this.props.globalError.message}</p>;
+    }
+    //having a userId means login was successful
+    else if(this.props.globalUserId) {
+      authMessage = <p className={styles.welcomeMsg}>WELCOME!</p>;
+    }
+    else {
+      authMessage = null;
+    }
+
     return (
       <div className={styles.AuthData}>
+        {authMessage}
+
         <form onSubmit={this.submitHandler}>
           <input 
             className={styles.Input}
@@ -72,10 +87,17 @@ class Auth extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    globalError: state.toAuthReducer.error,
+    globalUserId: state.toAuthReducer.userId
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     onAuth: (email, password, isSignUp) => dispatch(authActions.authStart(email, password, isSignUp))
   };
 }
 
-export default connect(null, mapDispatchToProps)(Auth);
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);

@@ -27,7 +27,7 @@ const authReducer = (state=initialState, action) => {
   else if(action.type === actionTypes.AUTH_FAILURE) {
     return {
       ...state,
-      error: action.error,
+      error: action.errorObj,
       isLoading: false
     };
   }

@@ -13,10 +13,10 @@ export const authSuccess = (token, localId) => {
   };
 };
 
-export const authFailure = (error) => {
+export const authFailure = (errorObj) => {
   return {
     type: actionTypes.AUTH_FAILURE,
-    error: error
+    errorObj: errorObj
   };
 };
 
@@ -41,11 +41,13 @@ export const authStart = (email, password, isSignUp) => {
 
     axios.post(FULL_LINK, authData)
       .then(response => {
-        console.log(response)
+        console.log(response);
         dispatch(authSuccess(response.data.idToken, response.data.localId));
       })
-      .catch(error => {
-        dispatch(authFailure(error));
+      .catch(err => {
+        console.log(err.response);
+        //dispatch entire data.error object
+        dispatch(authFailure(err.response.data.error));
       });
   };
 };

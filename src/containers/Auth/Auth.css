@@ -59,3 +59,13 @@
 .Register:hover {
   background-color: #17928c;
 }
+
+.errMsg {
+  color: red;
+  font-weight: bold;
+}
+
+.welcomeMsg {
+  color: green;
+  font-weight: bold;
+}
