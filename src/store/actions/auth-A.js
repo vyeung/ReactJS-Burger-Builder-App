@@ -5,10 +5,11 @@ const REGISTER_LINK = "https://www.googleapis.com/identitytoolkit/v3/relyingpart
 const LOGIN_LINK = "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=";
 const API_KEY = "AIzaSyBwALVFvTr1Sqm4mRdMRLlQ6Y2DJCkcrTc";
 
-export const authSuccess = (authData) => {
+export const authSuccess = (token, localId) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
-    authData: authData
+    idToken: token,
+    userId: localId
   };
 };
 
@@ -40,7 +41,8 @@ export const authStart = (email, password, isSignUp) => {
 
     axios.post(FULL_LINK, authData)
       .then(response => {
-        dispatch(authSuccess(response.data));
+        console.log(response)
+        dispatch(authSuccess(response.data.idToken, response.data.localId));
       })
       .catch(error => {
         dispatch(authFailure(error));
