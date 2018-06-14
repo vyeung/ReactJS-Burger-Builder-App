@@ -34,8 +34,12 @@ class Auth extends Component {
     this.props.onAuth(this.state.authForm.email, this.state.authForm.password, this.state.isSignUp);
   }
 
-  switchAuthModeHandler = () => {
+  loginModeHandler = () => {
     this.setState({isSignUp: false});
+  }
+
+  registerModeHandler = () => {
+    this.setState({isSignUp: true});
   }
 
   render() {
@@ -75,11 +79,12 @@ class Auth extends Component {
             
           <button
             className={[styles.Button, styles.Login].join(" ")}
-            onClick={this.switchAuthModeHandler}
+            onClick={this.loginModeHandler}
             >Login</button>
           or
           <button
             className={[styles.Button, styles.Register].join(" ")}
+            onClick={this.registerModeHandler}
             >Register</button>
         </form>
       </div>
