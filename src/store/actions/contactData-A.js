@@ -34,7 +34,6 @@ export const purchaseStart = (orderData) => {
       .catch(error => {
         setTimeout(() => {
           dispatch(purchaseFailure(error));
-          alert("Please login to order");
         }, 2000);
       });
   };
