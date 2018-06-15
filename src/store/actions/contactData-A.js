@@ -19,10 +19,11 @@ export const purchaseFailure = (error) => {
 
 //async action creator
 export const purchaseStart = (orderData) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch(purchaseStart2());
 
-    axios.post("/orders.json", orderData)
+    //use token of logged-in user to submit new order via query param
+    axios.post("/orders.json?auth=" + getState().toAuthReducer.token, orderData)
       //show spinner for at least 2s even if post request is finished first 
       .then(response => {
         setTimeout(() => {

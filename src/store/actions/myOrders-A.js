@@ -16,9 +16,11 @@ export const fetchOrdersFailure = (error) => {
 }
 
 export const fetchOrdersStart = () => {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch(fetchOrdersStart2());
-    axios.get("./orders.json")
+    
+    //use token of logged-in user to see orders page via query param
+    axios.get("./orders.json?auth=" + getState().toAuthReducer.token)
       .then(response => {
         const fetchedOrders = [];
         for(var key in response.data) {
