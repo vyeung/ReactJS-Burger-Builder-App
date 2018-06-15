@@ -42,8 +42,9 @@ class Auth extends Component {
     this.setState({isSignUp: true});
   }
 
+
   render() {
-    let authMessage;
+    let authMessage = null;
     if(this.props.globalError) {
       //extract message field from globalError object
       authMessage = <p className={styles.errMsg}>{this.props.globalError.message}</p>;
@@ -52,13 +53,19 @@ class Auth extends Component {
     else if(this.props.globalUserId) {
       authMessage = <p className={styles.welcomeMsg}>WELCOME!</p>;
     }
-    else {
-      authMessage = null;
+
+    let authRedirect = null;
+    if(this.props.globalIsAuth === true) {
+      //redirect to "/" in 1.5s after successful login
+      setTimeout(() => {
+        authRedirect = this.props.history.push("/");
+      }, 1500);
     }
 
     return (
       <div className={styles.AuthData}>
         {authMessage}
+        {authRedirect}
 
         <form onSubmit={this.submitHandler}>
           <input 
@@ -95,7 +102,8 @@ class Auth extends Component {
 const mapStateToProps = (state) => {
   return {
     globalError: state.toAuthReducer.error,
-    globalUserId: state.toAuthReducer.userId
+    globalUserId: state.toAuthReducer.userId,
+    globalIsAuth: state.toAuthReducer.token !== null
   };
 };
 
