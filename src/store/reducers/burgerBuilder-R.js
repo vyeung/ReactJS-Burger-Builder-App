@@ -18,7 +18,20 @@ const initialState = {
 };
 
 const burgerBuilderReducer = (state=initialState, action) => {
-  if(action.type === actionTypes.ADD_INGREDIENT) {
+  if(action.type === actionTypes.INIT_INGREDIENTS) {
+    return {
+      ...state,
+      ingredients: {
+        ...state.ingredients,
+        lettuce: 0,
+        bacon: 0,
+        cheese: 0,
+        beef: 0
+      },
+      totalPrice: 3
+    };
+  }
+  else if(action.type === actionTypes.ADD_INGREDIENT) {
     return {
       ...state,
       ingredients: {

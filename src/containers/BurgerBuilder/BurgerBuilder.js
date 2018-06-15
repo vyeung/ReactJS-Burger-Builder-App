@@ -27,6 +27,10 @@ class BurgerBuilder extends Component {
   //     });
   // }
 
+  componentDidMount() {
+    this.props.onInitIngredients();
+  }
+
   //doesn't need to be an arrow function since it's not assigned to an event
   updatePurchaseState(ingreds) {
     let bool, sum=0;
@@ -131,7 +135,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onIngredientAdded: (name) => dispatch(burgerBuilderActions.addIngredient(name)),
-    onIngredientRemoved: (name) => dispatch(burgerBuilderActions.removeIngredient(name))
+    onIngredientRemoved: (name) => dispatch(burgerBuilderActions.removeIngredient(name)),
+    onInitIngredients: () => dispatch(burgerBuilderActions.initIngredients())
   };
 }
 

@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import {BrowserRouter} from "react-router-dom";
+import {createBrowserHistory} from "history/"
+import {Router} from "react-router-dom";
 import {Provider} from "react-redux";
 import {createStore, combineReducers, applyMiddleware, compose} from "redux";
 import thunk from "redux-thunk";
@@ -23,12 +24,13 @@ const rootReducer = combineReducers({
 });
 
 const myStore = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
+export const history = createBrowserHistory()
 
 const burgerApp = (
   <Provider store={myStore}>
-    <BrowserRouter>
+    <Router history={history}>
       <App />
-    </BrowserRouter>
+    </Router>
   </Provider>
 );
 
