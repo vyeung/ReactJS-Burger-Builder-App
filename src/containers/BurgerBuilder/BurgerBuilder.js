@@ -48,9 +48,12 @@ class BurgerBuilder extends Component {
     return bool;
   }
 
-  //start purchasing process when order button is clicked
+  //start checkout or redirect to "/auth" when order button is clicked
   purchaseHandler = () => {
-    this.setState({isPurchasing: true});
+    if(this.props.globalIsAuth) 
+      this.setState({isPurchasing: true});
+    else
+      this.props.history.push("/auth");
   }
 
   //on clicking backdrop or close button, close the modal thus cancelling order
@@ -117,6 +120,7 @@ class BurgerBuilder extends Component {
           price={this.props.globalTotalPrice}
           canPurchase={this.updatePurchaseState(this.props.globalIngreds)}
           ordered={this.purchaseHandler}
+          isAuthFromBB={this.props.globalIsAuth}
         /> 
 
         {/*{burger}*/}
@@ -128,7 +132,8 @@ class BurgerBuilder extends Component {
 const mapStateToProps = (state) => {
   return {
     globalIngreds: state.toBurgerBuilderReducer.ingredients,
-    globalTotalPrice: state.toBurgerBuilderReducer.totalPrice
+    globalTotalPrice: state.toBurgerBuilderReducer.totalPrice,
+    globalIsAuth: state.toAuthReducer.token !== null
   };
 };
 
