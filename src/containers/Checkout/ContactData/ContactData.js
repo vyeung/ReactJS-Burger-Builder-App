@@ -1,9 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import styles from "./ContactData.css";
-import axios from "../../../axios-orders";
 import Spinner from "../../../components/UI/Spinner/Spinner";
-import errorHandler from "../../../hoc/ErrorHandler/ErrorHandler";
 import * as contactDataActions from "../../../store/actions/contactData-A";
 
 class ContactData extends Component {
@@ -210,4 +208,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(errorHandler(ContactData, axios));
+export default connect(mapStateToProps, mapDispatchToProps)(ContactData);
