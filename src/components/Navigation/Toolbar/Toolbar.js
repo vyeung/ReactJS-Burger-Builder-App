@@ -19,7 +19,7 @@ const toolbar = (props) => {
       </div>
       
       <nav className={styles.HideDesktopNavItems}>
-        <NavItems />
+        <NavItems isAuthenticated={props.isAuthFromLayout} />
       </nav>
     </header>
   );

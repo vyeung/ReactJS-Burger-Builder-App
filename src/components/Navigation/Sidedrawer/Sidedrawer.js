@@ -30,7 +30,7 @@ const sidedrawer = (props) =>
           <Logo />
         </div>
         <nav onClick={props.closeSD}>
-          <NavItems />
+          <NavItems isAuthenticated={props.isAuthFromLayout}/>
         </nav>
       </div>
     </Aux>

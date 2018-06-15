@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./NavItems.css";
 import {NavLink} from "react-router-dom";
 
-const navItems = () => {
+const navItems = (props) => {
   return (
     <ul className={styles.NavItems}>
       <li className={styles.Item}>
@@ -18,11 +18,19 @@ const navItems = () => {
           activeClassName={styles.active}
           >My Orders</NavLink>
       </li>
+
+      {/* inline using ternary operator */}
       <li className={styles.Item}>
-        <NavLink 
-          to="/auth"
-          activeClassName={styles.active}
-          >Authenticate</NavLink>
+        {props.isAuthenticated===false ?
+          <NavLink 
+            to="/auth" 
+            activeClassName={styles.active}
+            >Authenticate</NavLink> 
+          : <NavLink 
+              to="/logout"
+              activeClassName={styles.active}
+              >Logout</NavLink>    
+        }
       </li>
     </ul>
   );

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {connect} from "react-redux";
 import Aux from "../Auxiliary/Auxiliary";
 import styles from "./Layout.css";
 import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
@@ -24,12 +25,14 @@ class Layout extends Component {
     return (
       //using a HOC to save rendering an unnecessary div
       <Aux>
-        <Toolbar clickToggle={this.sidedrawerToggleHander} />
+        <Toolbar 
+          clickToggle={this.sidedrawerToggleHander}
+          isAuthFromLayout={this.props.globalIsAuth} />
         
         <Sidedrawer 
           showSD={this.state.showSidedrawer}
           closeSD={this.sidedrawerClosedHandler}
-        />
+          isAuthFromLayout={this.props.globalIsAuth} />
 
         <main className={styles.Content}>
           {this.props.children}
@@ -39,4 +42,10 @@ class Layout extends Component {
   }
 } 
 
-export default Layout;
+const mapStateToProps = (state) => {
+  return {
+    globalIsAuth: state.toAuthReducer.token !== null  //T or F
+  };
+}
+
+export default connect(mapStateToProps)(Layout);
