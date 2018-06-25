@@ -42,6 +42,15 @@ export const authStart = (email, password, isSignUp) => {
     axios.post(FULL_LINK, authData)
       .then(response => {
         console.log(response);
+        
+        //creates a new Date object with 1 extra hour added to it
+        const tokenExpireDate = new Date(new Date().getTime() + response.data.expiresIn*1000);
+
+        //saving auth credentials in localStorage prevents them being lost on page reload
+        localStorage.setItem("token", response.data.idToken);
+        localStorage.setItem("tokenExpireDate", tokenExpireDate);
+        localStorage.setItem("userId", response.data.localId);
+
         dispatch(authSuccess(response.data.idToken, response.data.localId));
         dispatch(checkAuthTimeout(response.data.expiresIn));  //3600s = 1hr
       })
@@ -63,12 +72,41 @@ export const checkAuthTimeout = (expirationTime) => {
   return dispatch => {
     setTimeout(() => {
       dispatch(logout());
-    }, expirationTime*1000); //since setTimeout is in ms
+    }, expirationTime*1000);  //since setTimeout works in ms
   };
 };
 
 export const logout = () => {
+  //clear token info in localStorage on logout
+  localStorage.removeItem("token");
+  localStorage.removeItem("tokenExpireDate");
+  localStorage.removeItem("userId");  
   return {
     type: actionTypes.AUTH_LOGOUT
+  };
+};
+
+export const checkAuthState = () => {
+  return dispatch => {
+    const tokenInStorage = localStorage.getItem("token");
+    const userIdStorage = localStorage.getItem("userId");
+    const tokenExpireDate = new Date(localStorage.getItem("tokenExpireDate"));
+    const exactCurrentDate = new Date();
+
+    if(!tokenInStorage) {
+      dispatch(logout());
+    }
+    else {
+      //do auto login if token hasn't expired yet
+      if(tokenExpireDate >= exactCurrentDate) {
+        const timeLeftInSecs = (tokenExpireDate.getTime() - exactCurrentDate.getTime()) / 1000;
+        console.log(timeLeftInSecs + "s");
+        dispatch(authSuccess(tokenInStorage, userIdStorage));
+        dispatch(checkAuthTimeout(timeLeftInSecs));
+      }
+      else {
+        dispatch(logout());
+      }
+    }
   };
 };
