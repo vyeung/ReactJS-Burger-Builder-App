@@ -41,7 +41,7 @@ class ContactData extends Component {
   inputEnteredHandler = (event) => {
     //console.log(event.target.value);
     //console.log(event.target.name);
-    console.log(event.target.validity);
+    //console.log(event.target.validity);
 
     if(event.target.name === "name") {
       //don't allow user to enter excess whitespace between strings

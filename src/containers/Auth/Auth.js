@@ -13,7 +13,7 @@ class Auth extends Component {
   }
   
   inputEnteredHandler = (event) => {
-    console.log(event.target.validity);
+    //console.log(event.target.validity);
 
     if(event.target.name === "password") {
       if(event.target.validity.tooShort === true) {
