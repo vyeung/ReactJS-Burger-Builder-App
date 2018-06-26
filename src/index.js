@@ -13,8 +13,9 @@ import contactDataReducer from "./store/reducers/contactData-R";
 import myOrdersReducer from "./store/reducers/myOrders-R";
 import authReducer from "./store/reducers/auth-R";
 
-//need to use this line when using Redux DevTools and Middleware
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+//need to use this line when using Redux DevTools and Middleware.
+//also turns off Redux Devtools if we aren't in development mode.
+const composeEnhancers = (process.env.NODE_ENV==="development" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
 const rootReducer = combineReducers({
   toBurgerBuilderReducer: burgerBuilderReducer,
