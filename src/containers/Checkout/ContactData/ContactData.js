@@ -31,7 +31,8 @@ class ContactData extends Component {
     const order = {
       ingredients: this.props.globalIngreds,
       price: this.props.globalTotalPrice,
-      orderData: this.state.orderForm
+      orderData: this.state.orderForm,
+      userId: this.props.globalUserId
     };
 
     this.props.onOrder(order);
@@ -198,7 +199,8 @@ const mapStateToProps = (state) => {
   return {
     globalIngreds: state.toBurgerBuilderReducer.ingredients,
     globalTotalPrice: state.toBurgerBuilderReducer.totalPrice,
-    globalIsLoading: state.toContactDataReducer.isLoading
+    globalIsLoading: state.toContactDataReducer.isLoading,
+    globalUserId: state.toAuthReducer.userId
   };
 }
 

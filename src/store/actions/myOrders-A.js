@@ -19,8 +19,14 @@ export const fetchOrdersStart = () => {
   return (dispatch, getState) => {
     dispatch(fetchOrdersStart2());
     
-    //use token of logged-in user to see orders page via query param
-    axios.get("./orders.json?auth=" + getState().toAuthReducer.token)
+    //non-template string version
+    //const queryParams = "?auth=" + getState().toAuthReducer.token + "&orderBy=\"userId\"&equalTo=" + "\"" + getState().toAuthReducer.userId + "\"";
+
+    //use token and userId to see orders specific to a user with query params.
+    //orderBy is a query param understood by Firebase.
+    //note that userId and the id itself must be in ""
+    const queryParams = `?auth=${getState().toAuthReducer.token}&orderBy="userId"&equalTo="${getState().toAuthReducer.userId}"`;
+    axios.get("./orders.json" + queryParams)
       .then(response => {
         const fetchedOrders = [];
         for(var key in response.data) {
