@@ -4,7 +4,7 @@ const initialState = {
   myOrders: []
 };
 
-const contactDataReducer = (state=initialState, action) => {
+const myOrdersReducer = (state=initialState, action) => {
   if(action.type === actionTypes.FETCH_ORDERS_START) {
     //could just say return state;
     return {
@@ -26,4 +26,4 @@ const contactDataReducer = (state=initialState, action) => {
   return state;
 }
 
-export default contactDataReducer;
+export default myOrdersReducer;

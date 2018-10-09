@@ -30,7 +30,7 @@ export const fetchOrdersStart = () => {
       .then(response => {
         const fetchedOrders = [];
         for(var key in response.data) {
-          //push an object with all the original data and a new id field we made
+          //push an object with all the response data and a new id field, which is the order id on firebase
           fetchedOrders.push({...response.data[key], id:key});
         }
         dispatch(fetchOrdersSuccess(fetchedOrders));
