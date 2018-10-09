@@ -16,6 +16,13 @@ const realOrder = (props) => {
     <div className={styles.RealOrder}>
       <p>Ingredients: {realOrderIngreds}</p>
       <p>Price: <strong>${props.price}</strong></p>
+
+      <div className={styles.DeleteButtonDiv}>
+        <button
+          className={styles.DeleteButton}
+          onClick={props.clickedDelete}
+          >Delete</button>
+      </div>
     </div>
   );
 }
